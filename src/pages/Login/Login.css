@@ -1,10 +1,8 @@
-
-.homeDesign {
-
+.loginDesign {
     height: 28vh;
     width: 100vw;
 
-    background-color: rgb(220, 220, 37);
+    background-color: rgb(46, 27, 194);
 
     display: flex;
     flex-direction: column;
