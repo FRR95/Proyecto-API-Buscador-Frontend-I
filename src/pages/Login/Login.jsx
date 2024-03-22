@@ -71,7 +71,7 @@ export const Login = () => {
       );
 
       setTimeout(() => {
-        navigate("/");
+        navigate("/profile");
       }, 2000);
     } catch (error) {
       setMsgError(error.message);

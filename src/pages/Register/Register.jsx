@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CustomInput } from "../../components/CustomInput/CustomInput";
 import "./Register.css";
 import { CustomButton } from "../../components/CustomButton/CustomButton";
@@ -6,10 +6,12 @@ import { RegisterUser } from "../../services/apiCalls";
 import { validame } from "../../utils/functions";
 import { useNavigate } from "react-router-dom";
 
+const datosUser = JSON.parse(localStorage.getItem("passport"));
+
 export const Register = () => {
 
   const navigate = useNavigate();
-
+  const [tokenStorage, setTokenStorage] = useState(datosUser?.token);
   const [user, setUser] = useState({
     first_name: "",
     last_name: "",
@@ -26,6 +28,12 @@ export const Register = () => {
 
   const [msgError, setMsgError] = useState("");
   const [msgSuccess, setMsgSuccess] = useState("");
+
+  useEffect(() => {
+    if (tokenStorage) {
+      navigate("/");
+    }
+  }, [tokenStorage]);
 
   //funcion emit que está aqui en el padre... que se la pasamos al custom input
   const inputHandler = (e) => {
