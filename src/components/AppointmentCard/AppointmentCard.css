@@ -1,0 +1,19 @@
+.appointmentCardDesign{
+    height: 10em;
+    width:15em;
+    margin:1em;
+    border:1px solid black;
+    border-radius: 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(135, 231, 255);
+    transition:0.5s;
+}
+.appointmentCardDesign:hover{
+    cursor: pointer;
+    background-color: rgb(53, 213, 253);
+    transition: 0.5s;
+    
+}
