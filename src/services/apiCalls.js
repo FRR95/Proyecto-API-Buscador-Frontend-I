@@ -96,3 +96,33 @@ export const UpdateProfile = async (token, data) => {
     return error;
   }
 };
+
+export const GetAppointments = async (token) => {
+  const options = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    }
+  };
+  const response = await fetch(`${root}appointments`,options)
+  const data = await response.json()
+ 
+  return data;
+  
+}
+export const PostAppointment = async (token,appointmentsCredentials) => {
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    },
+    body: JSON.stringify(appointmentsCredentials)
+  };
+  const response = await fetch(`${root}appointments`,options)
+  const data = await response.json()
+ 
+  return data;
+  
+}
