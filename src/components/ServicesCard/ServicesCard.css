@@ -1,0 +1,19 @@
+.servicesCardDesign{
+    height: 10em;
+    width:100em;
+    margin:1em;
+    border:1px solid black;
+    border-radius: 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(29, 229, 255);
+    transition:0.5s;
+}
+.servicesCardDesign:hover{
+    cursor: pointer;
+    background-color: rgb(19, 146, 163);
+    transition: 0.5s;
+    
+}
