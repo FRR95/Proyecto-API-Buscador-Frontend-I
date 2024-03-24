@@ -126,3 +126,26 @@ export const PostAppointment = async (token,appointmentsCredentials) => {
   return data;
   
 }
+
+export const GetServices = async (token) => {
+  const options = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    }
+  };
+
+  try {
+    const response = await fetch(`${root}services`, options);
+
+    const data = await response.json();
+
+    if (!data.success) {
+      throw new Error(data.message);
+    }
+    
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
