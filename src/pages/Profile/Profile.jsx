@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import "./Profile.css";
-import { GetAppointments, GetProfile, PostAppointment, UpdateProfile } from "../../services/apiCalls";
+import { DeleteUserAppointment, GetAppointments, GetProfile, PostAppointment, UpdateProfile } from "../../services/apiCalls";
 import { ProfileCard } from "../../components/ProfileCard/ProfileCard";
 import { CustomInput } from "../../components/CustomInput/CustomInput";
 import { validame } from "../../utils/functions";
@@ -147,8 +147,17 @@ export const Profile = () => {
 
   }
 
-  return (
+  const DeleteAppointment = async (appointment) => {
+    try {
+      const fetched = await DeleteUserAppointment(appointment,tokenStorage)
+      console.log(fetched.message);
+    } catch (error) {
+      console.log(error)
+    }
 
+  }
+
+  return (
 
     <div className="profileDesign">
 
@@ -212,12 +221,17 @@ export const Profile = () => {
         appointment => {
           return (
 
-
-            <AppointmentCard
-              service_id={appointment.service.service_name}
-              appointment_date={appointment.appointment_date}
-            />
-
+            <>
+              <AppointmentCard
+                service_id={appointment.service.service_name}
+                appointment_date={appointment.appointment_date}
+              />
+              <CustomButton
+                className={"customButtonDesign"}
+                title={"Borrar cita"}
+                functionEmit={()=>DeleteAppointment(appointment.id)}
+              />
+            </>
 
           )
         }

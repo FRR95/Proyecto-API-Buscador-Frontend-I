@@ -3,50 +3,54 @@ import { ServicesCard } from "../../components/ServicesCard/ServicesCard"
 import { GetServices } from "../../services/apiCalls"
 import "./Services.css"
 import { useEffect } from "react"
-export const Services=()=>{
+export const Services = () => {
     const [services, setServices] = useState([])
 
     useEffect(() => {
         if (services.length === 0) {
-          const BringData = async () => {
-            try {
-    
-    
-              const fetched = await GetServices()
-              setServices(fetched.data)
-    
-            } catch (error) {
-              console.log(error)
+            const BringData = async () => {
+                try {
+
+
+                    const fetched = await GetServices()
+                    setServices(fetched.data)
+
+                } catch (error) {
+                    console.log(error)
+                }
             }
-          }
-          BringData()
+            BringData()
         }
-    
-      }, [services])
+
+    }, [services])
 
 
-    return(
-        <>
-        {
-            services.length > 0
-                ? (<div className="servicesDesign">
+    return (
+       
+            <div className="servicesDesign">
+                {
+                    services.length > 0
+                        ? (<div className="servicesDesign">
 
-                    {services.map(
-                        service => {
-                            return (
-                        
-                         
-                                    <ServicesCard
-                                    service_name={service.service_name}
-                                    description={service.description}
-                                    />
+                            {services.map(
+                                service => {
+                                    return (
+
+
+                                        <ServicesCard
+                                            service_name={service.service_name}
+                                            description={service.description}
+                                        />
+                                    )
+                                }
                             )
-                        }
-                    )
-                    }
-                </div>)
-                : (<p>Los servicios estan viniendo </p>)
-        }
-        </>
+                            }
+                        </div>)
+                        : (<div className="servicesDesign">
+                            <p>Los servicios estan viniendo </p>
+                        </div>)
+                }
+            </div>
+       
     )
 }
