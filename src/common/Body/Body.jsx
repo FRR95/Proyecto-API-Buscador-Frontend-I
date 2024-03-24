@@ -3,6 +3,7 @@ import { Home } from "../../pages/Home/Home";
 import { Register } from "../../pages/Register/Register";
 import { Login } from "../../pages/Login/Login";
 import { Profile } from "../../pages/Profile/Profile";
+import { Services } from "../../pages/Services/Services";
 
 
 
@@ -14,6 +15,7 @@ export const Body = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/services" element={<Services />} />
     </Routes>
   );
 };
