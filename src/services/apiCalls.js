@@ -143,9 +143,32 @@ export const GetServices = async (token) => {
     if (!data.success) {
       throw new Error(data.message);
     }
-    
+
     return data;
   } catch (error) {
     return error;
   }
 };
+
+export const DeleteUserAppointment=async(appointment,token)=>{
+  const options = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    }
+  };
+  try {
+    const response = await fetch(`${root}appointments/${appointment}`, options);
+
+    const data = await response.json();
+
+    if (!data.success) {
+      throw new Error(data.message);
+    }
+
+    return data;
+  } catch (error) {
+    return error;
+  }
+}
