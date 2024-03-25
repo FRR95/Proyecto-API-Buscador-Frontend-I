@@ -6,6 +6,7 @@ import "./Login.css";
 import { LoginUser } from "../../services/apiCalls";
 import { useNavigate } from "react-router-dom";
 import { decodeToken } from "react-jwt";
+import { Header } from "../../common/Header/Header";
 
 const datosUser = JSON.parse(localStorage.getItem("passport"));
 
@@ -79,6 +80,8 @@ export const Login = () => {
   };
 
   return (
+    <>
+    <Header/>
     <div className="loginDesign">
       <CustomInput
         className={`inputDesign ${
@@ -112,5 +115,6 @@ export const Login = () => {
       />
       <div className="error">{msgError}</div>
     </div>
+    </>
   );
 };

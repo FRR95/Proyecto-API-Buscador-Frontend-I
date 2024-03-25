@@ -7,6 +7,7 @@ import { CustomInput } from "../../components/CustomInput/CustomInput";
 import { validame } from "../../utils/functions";
 import { CustomButton } from "../../components/CustomButton/CustomButton";
 import { AppointmentCard } from "../../components/AppointmentCard/AppointmentCard";
+import { Header } from "../../common/Header/Header";
 
 
 export const Profile = () => {
@@ -149,7 +150,7 @@ export const Profile = () => {
 
   const DeleteAppointment = async (appointment) => {
     try {
-      const fetched = await DeleteUserAppointment(appointment,tokenStorage)
+      const fetched = await DeleteUserAppointment(appointment, tokenStorage)
       console.log(fetched.message);
     } catch (error) {
       console.log(error)
@@ -158,116 +159,117 @@ export const Profile = () => {
   }
 
   return (
+    <>
+      <Header />
+      <div className="profileDesign">
 
-    <div className="profileDesign">
+        {!loadedData ? (
+          <div>CARGANDO</div>
+        ) : (
+          <div>
+            <ProfileCard
+              first_name={user.first_name}
+              last_name={user.last_name}
+              email={user.email}
+            />
+            <CustomInput
+              className={`inputDesign ${userError.first_nameError !== "" ? "inputDesignError" : ""
+                }`}
+              type={"text"}
+              placeholder={""}
+              name={"first_name"}
+              disabled={write}
+              value={user.first_name || ""}
+              onChangeFunction={(e) => inputHandler(e)}
+              onBlurFunction={(e) => checkError(e)}
+            />
+            <div className="error">{userError.first_nameError}</div>
+            <CustomInput
+              className={`inputDesign ${userError.last_nameError !== "" ? "inputDesignError" : ""
+                }`}
+              type={"text"}
+              placeholder={""}
+              name={"last_name"}
+              disabled={write}
+              value={user.last_name || ""}
+              onChangeFunction={(e) => inputHandler(e)}
+              onBlurFunction={(e) => checkError(e)}
+            />
+            <div className="error">{userError.last_nameError}</div>
+            <CustomInput
+              className={`inputDesign ${userError.emailError !== "" ? "inputDesignError" : ""
+                }`}
+              type={"email"}
+              placeholder={""}
+              name={"email"}
+              disabled={"disabled"}
+              value={user.email || ""}
+              onChangeFunction={(e) => inputHandler(e)}
+              onBlurFunction={(e) => checkError(e)}
+            />
+            <div className="error">{userError.emailError}</div>
+            <CustomButton
+              className={write === "" ? "customButtonGreen customButtonDesign" : "customButtonDesign"}
+              title={write === "" ? "Confirm" : "Edit"}
+              functionEmit={write === "" ? updateData : () => setWrite("")}
+            />
+          </div>
 
-      {!loadedData ? (
-        <div>CARGANDO</div>
-      ) : (
-        <div>
-          <ProfileCard
-            first_name={user.first_name}
-            last_name={user.last_name}
-            email={user.email}
-          />
-          <CustomInput
-            className={`inputDesign ${userError.first_nameError !== "" ? "inputDesignError" : ""
-              }`}
-            type={"text"}
-            placeholder={""}
-            name={"first_name"}
-            disabled={write}
-            value={user.first_name || ""}
-            onChangeFunction={(e) => inputHandler(e)}
-            onBlurFunction={(e) => checkError(e)}
-          />
-          <div className="error">{userError.first_nameError}</div>
-          <CustomInput
-            className={`inputDesign ${userError.last_nameError !== "" ? "inputDesignError" : ""
-              }`}
-            type={"text"}
-            placeholder={""}
-            name={"last_name"}
-            disabled={write}
-            value={user.last_name || ""}
-            onChangeFunction={(e) => inputHandler(e)}
-            onBlurFunction={(e) => checkError(e)}
-          />
-          <div className="error">{userError.last_nameError}</div>
-          <CustomInput
-            className={`inputDesign ${userError.emailError !== "" ? "inputDesignError" : ""
-              }`}
-            type={"email"}
-            placeholder={""}
-            name={"email"}
-            disabled={"disabled"}
-            value={user.email || ""}
-            onChangeFunction={(e) => inputHandler(e)}
-            onBlurFunction={(e) => checkError(e)}
-          />
-          <div className="error">{userError.emailError}</div>
-          <CustomButton
-            className={write === "" ? "customButtonGreen customButtonDesign" : "customButtonDesign"}
-            title={write === "" ? "Confirm" : "Edit"}
-            functionEmit={write === "" ? updateData : () => setWrite("")}
-          />
-        </div>
+        )
 
-      )
-
-      }
-
-      {appointments.map(
-        appointment => {
-          return (
-
-            <>
-              <AppointmentCard
-                service_id={appointment.service.service_name}
-                appointment_date={appointment.appointment_date}
-              />
-              <CustomButton
-                className={"customButtonDesign"}
-                title={"Borrar cita"}
-                functionEmit={()=>DeleteAppointment(appointment.id)}
-              />
-            </>
-
-          )
         }
-      )
-      }
 
-      <pre>{JSON.stringify(appointmentsCredentials, null, 2)}</pre>
+        {appointments.map(
+          appointment => {
+            return (
 
-      <CustomInput
-        className={`inputDesign`}
-        type={"date"}
-        placeholder={""}
-        name={"appointment_date"}
-        value={appointmentsCredentials.appointment_date || ""}
-        onChangeFunction={(e) => appointmentInputHandler(e)}
-      />
-      <CustomInput
-        className={`inputDesign`}
-        type={"text"}
-        placeholder={""}
-        name={"service_id"}
-        value={appointmentsCredentials.service_id || ""}
-        onChangeFunction={(e) => appointmentInputHandler(e)}
-      />
+              <>
+                <AppointmentCard
+                  service_id={appointment.service.service_name}
+                  appointment_date={appointment.appointment_date}
+                />
+                <CustomButton
+                  className={"customButtonDesign"}
+                  title={"Borrar cita"}
+                  functionEmit={() => DeleteAppointment(appointment.id)}
+                />
+              </>
 
-      <CustomButton
-        className={"customButtonGreen"}
-        title={"Create appointment"}
-        functionEmit={createAppointment}
-      />
+            )
+          }
+        )
+        }
+
+        <pre>{JSON.stringify(appointmentsCredentials, null, 2)}</pre>
+
+        <CustomInput
+          className={`inputDesign`}
+          type={"date"}
+          placeholder={""}
+          name={"appointment_date"}
+          value={appointmentsCredentials.appointment_date || ""}
+          onChangeFunction={(e) => appointmentInputHandler(e)}
+        />
+        <CustomInput
+          className={`inputDesign`}
+          type={"text"}
+          placeholder={""}
+          name={"service_id"}
+          value={appointmentsCredentials.service_id || ""}
+          onChangeFunction={(e) => appointmentInputHandler(e)}
+        />
+
+        <CustomButton
+          className={"customButtonGreen"}
+          title={"Create appointment"}
+          functionEmit={createAppointment}
+        />
 
 
 
-    </div>
+      </div>
 
-
+    </>
   );
 
 };

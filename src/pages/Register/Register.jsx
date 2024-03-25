@@ -5,6 +5,7 @@ import { CustomButton } from "../../components/CustomButton/CustomButton";
 import { RegisterUser } from "../../services/apiCalls";
 import { validame } from "../../utils/functions";
 import { useNavigate } from "react-router-dom";
+import { Header } from "../../common/Header/Header";
 
 const datosUser = JSON.parse(localStorage.getItem("passport"));
 
@@ -77,6 +78,8 @@ export const Register = () => {
   };
 
   return (
+    <>
+    <Header/>
     <div className="registerDesign">
       <pre>{JSON.stringify(user, null, 2)}</pre>
       <CustomInput
@@ -135,5 +138,6 @@ export const Register = () => {
       <div className="error">{msgError}</div>
       <div className="successMessage">{msgSuccess}</div>
     </div>
+    </>
   );
 };
