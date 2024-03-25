@@ -25,6 +25,8 @@ export const Login = () => {
   });
 
   const [msgError, setMsgError] = useState("");
+  const [msgSuccess, setMsgSuccess] = useState("");
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     if (tokenStorage) {
@@ -55,9 +57,14 @@ export const Login = () => {
           throw new Error("Todos los campos tienen que estar rellenos");
         }
       }
-
+      setLoading(true)
       const fetched = await LoginUser(credenciales);
 
+      if (!fetched.success) {
+        setLoading(false)
+        return setMsgError(fetched.message);
+      }
+      setLoading(true)
       const decodificado = decodeToken(fetched.token);
 
       const passport = {
@@ -67,10 +74,10 @@ export const Login = () => {
 
       localStorage.setItem("passport", JSON.stringify(passport));
 
-      setMsgError(
+      setMsgSuccess(
         `Hola ${decodificado.first_name}, bienvenido de nuevo`
       );
-
+      setLoading(false)
       setTimeout(() => {
         navigate("/profile");
       }, 2000);
@@ -81,40 +88,46 @@ export const Login = () => {
 
   return (
     <>
-    <Header/>
-    <div className="loginDesign">
-      <CustomInput
-        className={`inputDesign ${
-          credencialesError.emailError !== "" ? "inputDesignError" : ""
-        }`}
-        type={"email"}
-        placeholder={"email"}
-        name={"email"}
-        value={credenciales.email || ""}
-        onChangeFunction={(e) => inputHandler(e)}
-        onBlurFunction={(e) => checkError(e)}
-      />
-      <div className="error">{credencialesError.emailError}</div>
-      <CustomInput
-        className={`inputDesign ${
-          credencialesError.password_hashError !== "" ? "inputDesignError" : ""
-        }`}
-        type={"password"}
-        placeholder={"password"}
-        name={"password_hash"}
-        value={credenciales.password_hash || ""}
-        onChangeFunction={(e) => inputHandler(e)}
-        onBlurFunction={(e) => checkError(e)}
-      />
-      <div className="error">{credencialesError.password_hashError}</div>
+      <Header />
+      <div className="loginDesign">
+        <CustomInput
+          className={`inputDesign ${credencialesError.emailError !== "" ? "inputDesignError" : ""
+            }`}
+          type={"email"}
+          placeholder={"email"}
+          name={"email"}
+          value={credenciales.email || ""}
+          onChangeFunction={(e) => inputHandler(e)}
+          onBlurFunction={(e) => checkError(e)}
+        />
+        <div className="error">{credencialesError.emailError}</div>
+        <CustomInput
+          className={`inputDesign ${credencialesError.password_hashError !== "" ? "inputDesignError" : ""
+            }`}
+          type={"password"}
+          placeholder={"password"}
+          name={"password_hash"}
+          value={credenciales.password_hash || ""}
+          onChangeFunction={(e) => inputHandler(e)}
+          onBlurFunction={(e) => checkError(e)}
+        />
+        <div className="error">{credencialesError.password_hashError}</div>
 
-      <CustomButton
-        className={"customButtonDesign"}
-        title={"Login"}
-        functionEmit={loginMe}
-      />
-      <div className="error">{msgError}</div>
-    </div>
+        <CustomButton
+          className={"customButtonDesign"}
+          title={"Login"}
+          functionEmit={loginMe}
+        />
+        <div className="error">{msgError}</div>
+        <div className="success">{msgSuccess}</div>
+        {loading ? (
+
+          <span>Loading...</span>
+
+        ) : (
+          ""
+        )}
+      </div>
     </>
   );
 };
