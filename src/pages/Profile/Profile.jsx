@@ -95,7 +95,6 @@ export const Profile = () => {
     const getUserProfile = async () => {
       try {
         const fetched = await GetProfile(tokenStorage);
-
         setLoadedData(true);
 
         setUser({

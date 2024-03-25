@@ -3,6 +3,7 @@ import { ServicesCard } from "../../components/ServicesCard/ServicesCard"
 import { GetServices } from "../../services/apiCalls"
 import "./Services.css"
 import { useEffect } from "react"
+import { Header } from "../../common/Header/Header"
 export const Services = () => {
     const [services, setServices] = useState([])
 
@@ -26,7 +27,9 @@ export const Services = () => {
 
 
     return (
-       
+
+        <>
+            <Header/>
             <div className="servicesDesign">
                 {
                     services.length > 0
@@ -51,6 +54,7 @@ export const Services = () => {
                         </div>)
                 }
             </div>
-       
+        </>
     )
+
 }

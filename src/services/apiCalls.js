@@ -105,13 +105,13 @@ export const GetAppointments = async (token) => {
       "Authorization": `Bearer ${token}`
     }
   };
-  const response = await fetch(`${root}appointments`,options)
+  const response = await fetch(`${root}appointments`, options)
   const data = await response.json()
- 
+
   return data;
-  
+
 }
-export const PostAppointment = async (token,appointmentsCredentials) => {
+export const PostAppointment = async (token, appointmentsCredentials) => {
   const options = {
     method: "POST",
     headers: {
@@ -120,11 +120,11 @@ export const PostAppointment = async (token,appointmentsCredentials) => {
     },
     body: JSON.stringify(appointmentsCredentials)
   };
-  const response = await fetch(`${root}appointments`,options)
+  const response = await fetch(`${root}appointments`, options)
   const data = await response.json()
- 
+
   return data;
-  
+
 }
 
 export const GetServices = async (token) => {
@@ -150,7 +150,7 @@ export const GetServices = async (token) => {
   }
 };
 
-export const DeleteUserAppointment=async(appointment,token)=>{
+export const DeleteUserAppointment = async (appointment, token) => {
   const options = {
     method: "DELETE",
     headers: {
@@ -170,5 +170,28 @@ export const DeleteUserAppointment=async(appointment,token)=>{
     return data;
   } catch (error) {
     return error;
+  }
+}
+
+export const GetUsers = async (token) => {
+  const options = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    }
+  };
+  try {
+    const response = await fetch(`${root}users`, options);
+    const data = await response.json();
+
+    if (!data.success) {
+      throw new Error(data.message);
+    }
+
+    return data;
+
+  } catch (error) {
+    return error
   }
 }

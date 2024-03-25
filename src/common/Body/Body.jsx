@@ -4,6 +4,7 @@ import { Register } from "../../pages/Register/Register";
 import { Login } from "../../pages/Login/Login";
 import { Profile } from "../../pages/Profile/Profile";
 import { Services } from "../../pages/Services/Services";
+import { SuperAdminPanel } from "../../pages/SuperAdminPanel/SuperAdmin";
 
 
 
@@ -16,6 +17,7 @@ export const Body = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/services" element={<Services />} />
+      <Route path="/superadminpanel" element={<SuperAdminPanel />} />
     </Routes>
   );
 };

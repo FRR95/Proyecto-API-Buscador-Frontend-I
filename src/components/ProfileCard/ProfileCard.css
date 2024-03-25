@@ -9,6 +9,7 @@
     align-items: center;
     background-color: rgb(255, 135, 135);
     transition:0.5s;
+    margin:1em
 }
 .profileCardDesign:hover{
     cursor: pointer;
