@@ -12,10 +12,12 @@ export const Header = () => {
         navigate("/login");
     };
 
+
     return (
         <div className="headerDesign">
 
             <CustomLink title={"home"} destination={"/"} />
+            <CustomLink title={"services"} destination={"/services"} />
 
             {passport?.token ? (
                 <div className="menu">
@@ -31,6 +33,14 @@ export const Header = () => {
                 <div className="menu">
                     <CustomLink title={"register"} destination={"/register"} />
                     <CustomLink title={"login"} destination={"/login"} />
+                </div>
+            )}
+            {passport?.token && passport?.decodificado?.roleName==="super_admin" ? (
+                <div className="menu">
+              <CustomLink title={"Super Admin Panel"} destination={"/superadminpanel"} />
+                </div>
+            ) : (
+                <div className="menu">
                 </div>
             )}
 
