@@ -58,25 +58,29 @@ export const Profile = () => {
     }));
   };
 
+  const [msgError, setMsgError] = useState("");
+  const [msgSuccess, setMsgSuccess] = useState("");
+  const [loading, setLoading] = useState(false)
 
+  const BringData = async () => {
+    try {
+
+
+      const fetched = await GetAppointments(tokenStorage)
+      setAppointments(fetched.data)
+
+
+
+
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
 
   useEffect(() => {
     if (appointments.length === 0) {
-      const BringData = async () => {
-        try {
-
-
-          const fetched = await GetAppointments(tokenStorage)
-          setAppointments(fetched.data)
-
-
-
-
-        } catch (error) {
-          console.log(error)
-        }
-
-      }
+    
 
 
       BringData()
@@ -97,6 +101,7 @@ export const Profile = () => {
         const fetched = await GetProfile(tokenStorage);
         setLoadedData(true);
 
+
         setUser({
           first_name: fetched.data.first_name,
           last_name: fetched.data.last_name,
@@ -116,9 +121,11 @@ export const Profile = () => {
   const updateData = async () => {
 
     try {
+      setLoading(true)
       const fetched = await UpdateProfile(tokenStorage, user)
 
-
+      setMsgSuccess(fetched.message)
+      setLoading(false)
 
       setUser({
         first_name: fetched.dataFetched.first_name,
@@ -136,11 +143,21 @@ export const Profile = () => {
 
   const createAppointment = async () => {
     try {
+      for (let elemento in appointmentsCredentials) {
+        if (appointmentsCredentials[elemento] === "") {
+          throw new Error("Todos los campos tienen que estar rellenos");
+        }
+      }
+      setLoading(true)
       const fetched = await PostAppointment(tokenStorage, appointmentsCredentials)
-      navigate("/profile");
+
+      setLoading(false)
+      setMsgSuccess(fetched.message);
+
+      BringData()
 
     } catch (error) {
-      return error
+      setMsgError(error.message)
     }
 
 
@@ -150,9 +167,10 @@ export const Profile = () => {
   const DeleteAppointment = async (appointment) => {
     try {
       const fetched = await DeleteUserAppointment(appointment, tokenStorage)
-      console.log(fetched.message);
+      setMsgSuccess(fetched.message);
+      BringData()
     } catch (error) {
-      console.log(error)
+      setMsgError(error)
     }
 
   }
@@ -161,6 +179,15 @@ export const Profile = () => {
     <>
       <Header />
       <div className="profileDesign">
+        <div className="error">{msgError}</div>
+        <div className="success">{msgSuccess}</div>
+        {loading ? (
+
+          <span>Loading...</span>
+
+        ) : (
+          ""
+        )}
 
         {!loadedData ? (
           <div>CARGANDO</div>
