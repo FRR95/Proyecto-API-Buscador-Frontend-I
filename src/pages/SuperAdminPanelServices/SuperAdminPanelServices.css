@@ -1,0 +1,15 @@
+.superadminpanelservicesDesign {
+
+    height: 328vh;
+    width: 100vw;
+
+    background-color: rgb(231, 199, 54);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.error{
+    color: red;
+}

@@ -5,6 +5,7 @@ import { Login } from "../../pages/Login/Login";
 import { Profile } from "../../pages/Profile/Profile";
 import { Services } from "../../pages/Services/Services";
 import { SuperAdminPanel } from "../../pages/SuperAdminPanel/SuperAdmin";
+import { SuperAdminPanelServices } from "../../pages/SuperAdminPanelServices/SuperAdminPanelServices";
 
 
 
@@ -18,6 +19,7 @@ export const Body = () => {
       <Route path="/profile" element={<Profile />} />
       <Route path="/services" element={<Services />} />
       <Route path="/superadminpanel" element={<SuperAdminPanel />} />
+      <Route path="/superadminpanelservices" element={<SuperAdminPanelServices />} />
     </Routes>
   );
 };
