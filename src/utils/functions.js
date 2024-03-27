@@ -3,6 +3,8 @@ export const validame = (type, value) => {
       case "name":
       case "nombre":
       case "first_name":
+      case "service_name":
+      case "description":
       case "last_name":
       case "surname":
       case "cognom":
