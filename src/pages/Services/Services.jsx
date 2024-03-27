@@ -29,29 +29,30 @@ export const Services = () => {
     return (
 
         <>
-            <Header/>
+            <Header />
             <div className="servicesDesign">
                 {
                     services.length > 0
-                        ? (<div className="servicesDesign">
+                        ? (
+                            <div>
+                                {services.map(
+                                    service => {
+                                        return (
 
-                            {services.map(
-                                service => {
-                                    return (
-
-
-                                        <ServicesCard
-                                            service_name={service.service_name}
-                                            description={service.description}
-                                        />
-                                    )
+                                            <>
+                                                <ServicesCard
+                                                    service_name={service.service_name}
+                                                    description={service.description}
+                                                />
+                                            </>
+                                        )
+                                    }
+                                )
                                 }
-                            )
-                            }
-                        </div>)
-                        : (<div className="servicesDesign">
+                            </div>)
+                        : (
                             <p>Los servicios estan viniendo </p>
-                        </div>)
+                        )
                 }
             </div>
         </>

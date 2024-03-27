@@ -82,7 +82,7 @@ export const Register = () => {
     <>
       <Header />
       <div className="registerDesign">
-        <pre>{JSON.stringify(user, null, 2)}</pre>
+      
         <CustomInput
           className={`inputDesign ${userError.first_nameError !== "" ? "inputDesignError" : ""
             }`}
