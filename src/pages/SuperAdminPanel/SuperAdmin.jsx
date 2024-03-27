@@ -5,6 +5,7 @@ import { ProfileCard } from "../../components/ProfileCard/ProfileCard"
 import { DeleteUsers, GetAppointmentsUsersProfile, GetUsers, SeeUsersProfile } from "../../services/apiCalls"
 import { CustomButton } from "../../components/CustomButton/CustomButton"
 import { AppointmentCard } from "../../components/AppointmentCard/AppointmentCard"
+import { CustomLink } from "../../components/CustomLink/CustomLink"
 
 
 export const SuperAdminPanel = () => {
@@ -32,7 +33,6 @@ export const SuperAdminPanel = () => {
 
             const fetched = await GetUsers(tokenStorage)
             setUsers(fetched.data)
-            console.log(fetched.data)
 
         } catch (error) {
             console.log(error)
@@ -77,7 +77,6 @@ export const SuperAdminPanel = () => {
             }
 
             setUserAppointmentProfile(fetched.data)
-            console.log(fetched.data)
             setMsgSuccess(fetched.message)
 
 
@@ -177,25 +176,30 @@ export const SuperAdminPanel = () => {
                 }
 
                 {
-                
-                userAppointmenProfile.appointment_date !=="" 
-             ?
-                userAppointmenProfile.map(
-                    appointment => {
-                        return (
-                            <>
-                                <AppointmentCard
-                                    service_id={appointment.service_id}
-                                    appointment_date={appointment.appointment_date}
-                                />
-                            </>
+
+                    userAppointmenProfile.appointment_date !== ""
+                        ?
+                        userAppointmenProfile.map(
+                            appointment => {
+                                return (
+                                    <>
+                                        <AppointmentCard
+                                            service_id={appointment.service.service_name}
+                                            appointment_date={appointment.appointment_date}
+                                        />
+                                    </>
+                                )
+                            }
                         )
-                    }
-                )
-                :
-                ("")
+                        :
+                        ("")
                 }
-                
+
+                <CustomLink 
+                destination={"/superadminpanelservices"}
+                title={"Ver servicios de admin"}
+                />
+
             </div>
         </>
     )
