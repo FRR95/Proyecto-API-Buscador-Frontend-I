@@ -14,7 +14,10 @@ export const Header = () => {
 
 
     return (
+        <>
+        
         <div className="headerDesign">
+        <img className="logoImg" src="public\imgs\tattoogear-tattoo8.png" alt="" />
 
             <CustomLink title={"home"} destination={"/"} />
             <CustomLink title={"services"} destination={"/services"} />
@@ -46,5 +49,6 @@ export const Header = () => {
 
 
         </div>
+        </>
     )
 }

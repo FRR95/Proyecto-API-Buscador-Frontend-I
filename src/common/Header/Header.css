@@ -1,16 +1,23 @@
 .headerDesign {
 
-    height: 10vh;
+    min-height: 10vh;
     width: 99vw;
 
     background-color: #1f1e1e;
 
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-items: center;
 }
 
 .menu {
     display: flex;
     flex-direction: row;
+}
+
+.logoImg {
+    margin: 1em;
+
+    height: 8em;
+    width: 8em;
 }

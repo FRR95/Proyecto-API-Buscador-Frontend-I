@@ -8,7 +8,7 @@ export const Footer = () => {
     return (
         <div className="footerDesign">
 
-            FOOTER
+            TattoAndPiercingShop.com
 
 
         </div>

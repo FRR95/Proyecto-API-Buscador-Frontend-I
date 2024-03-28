@@ -15,6 +15,7 @@
 .error {
     color: red;
     font-weight: bold;
+
    
 }
 
@@ -23,7 +24,7 @@
     color: green;
     background-color: whitesmoke;
     border-radius: 0.2em;
-    margin-bottom: 50em;
+   
 }
 
 .UsersSection {
@@ -31,11 +32,11 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin: 16em;
+
 }
 
 .statusInfo {
-    position: absolute;
+ 
     display: flex;
     flex-direction: column;
     justify-content: center;
