@@ -108,30 +108,35 @@ export const SuperAdminPanel = () => {
             <Header />
             <div className="superAdminPanelDesign">
 
-
-
+               
+                <div className="error">{msgError}</div>
+                <div className="success">{msgSuccess}</div>
+            
                 {
                     users.length > 0
                         ? (<div className="superAdminPanelDesign">
-                            <div className="error">{msgError}</div>
-                            <div className="success">{msgSuccess}</div>
+
+
+
 
                             {userProfile.id !== ""
                                 ?
                                 (
                                     <>
-                                        <ProfileCard
-                                            user_id={userProfile.id}
-                                            first_name={userProfile.first_name}
-                                            last_name={userProfile.last_name}
-                                            email={userProfile.email}
-                                        />
+                                        <div className="UsersSection">
+                                            <ProfileCard
+                                                user_id={userProfile.id}
+                                                first_name={userProfile.first_name}
+                                                last_name={userProfile.last_name}
+                                                email={userProfile.email}
+                                            />
 
-                                        <CustomButton
-                                            className={"customButtonDesign"}
-                                            title={`Ver citas de ${userProfile.first_name}`}
-                                            functionEmit={() => GetUsersAppointments(userProfile.id)}
-                                        />
+                                            <CustomButton
+                                                className={"customButtonDesign"}
+                                                title={`Ver citas de ${userProfile.first_name}`}
+                                                functionEmit={() => GetUsersAppointments(userProfile.id)}
+                                            />
+                                        </div>
                                     </>
                                 )
                                 :
@@ -145,21 +150,23 @@ export const SuperAdminPanel = () => {
                                     return (
 
                                         <>
-                                            <ProfileCard
-                                                first_name={user.first_name}
-                                                last_name={user.last_name}
-                                                email={user.email}
-                                            />
-                                            <CustomButton
-                                                className={"customButtonDesign"}
-                                                title={`Borrar a ${user.first_name}`}
-                                                functionEmit={() => DeleteUser(user.id)}
-                                            />
-                                            <CustomButton
-                                                className={"customButtonDesign"}
-                                                title={`Ver perfil de ${user.first_name}`}
-                                                functionEmit={() => SeeUserProfile(user.id)}
-                                            />
+                                            <div className="UsersSection">
+                                                <ProfileCard
+                                                    first_name={user.first_name}
+                                                    last_name={user.last_name}
+                                                    email={user.email}
+                                                ></ProfileCard>
+                                                <CustomButton
+                                                    className={"customButtonDesign"}
+                                                    title={`Borrar a ${user.first_name}`}
+                                                    functionEmit={() => DeleteUser(user.id)}
+                                                />
+                                                <CustomButton
+                                                    className={"customButtonDesign"}
+                                                    title={`Ver perfil de ${user.first_name}`}
+                                                    functionEmit={() => SeeUserProfile(user.id)}
+                                                />
+                                            </div>
                                         </>
 
                                     )
@@ -183,23 +190,26 @@ export const SuperAdminPanel = () => {
                             appointment => {
                                 return (
                                     <>
-                                        <AppointmentCard
-                                            service_id={appointment.service.service_name}
-                                            appointment_date={appointment.appointment_date}
-                                        />
+                                        <div className="UsersSection">
+                                            <h2>{`Cita de ${appointment.user.first_name}`}</h2>
+                                            <AppointmentCard
+                                                service_id={appointment.service.service_name}
+                                                appointment_date={appointment.appointment_date}
+                                            />
+                                        </div>
                                     </>
                                 )
                             }
                         )
                         :
-                        ("")
+                        ("No hay citas disponibles")
                 }
-
-                <CustomLink 
-                destination={"/superadminpanelservices"}
-                title={"Ver servicios de admin"}
-                />
-
+                
+                    <CustomLink
+                        destination={"/superadminpanelservices"}
+                        title={"Ver servicios de admin"}
+                    />
+               
             </div>
         </>
     )

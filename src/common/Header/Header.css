@@ -3,11 +3,11 @@
     height: 10vh;
     width: 99vw;
 
-    background-color: lightskyblue;
+    background-color: #1f1e1e;
 
     display: flex;
     justify-content: flex-end;
-    align-items: flex-end;
+    align-items: center;
 }
 
 .menu {

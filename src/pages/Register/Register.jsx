@@ -7,10 +7,10 @@ import { validame } from "../../utils/functions";
 import { useNavigate } from "react-router-dom";
 import { Header } from "../../common/Header/Header";
 
-const datosUser = JSON.parse(localStorage.getItem("passport"));
+
 
 export const Register = () => {
-
+  const datosUser = JSON.parse(localStorage.getItem("passport"));
   const navigate = useNavigate();
   const [tokenStorage, setTokenStorage] = useState(datosUser?.token);
   const [user, setUser] = useState({
@@ -82,7 +82,7 @@ export const Register = () => {
     <>
       <Header />
       <div className="registerDesign">
-      
+      <h1>REGISTER</h1>
         <CustomInput
           className={`inputDesign ${userError.first_nameError !== "" ? "inputDesignError" : ""
             }`}

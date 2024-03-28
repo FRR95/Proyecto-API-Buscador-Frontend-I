@@ -80,7 +80,7 @@ export const Profile = () => {
 
   useEffect(() => {
     if (appointments.length === 0) {
-    
+
 
 
       BringData()
@@ -193,10 +193,11 @@ export const Profile = () => {
           <div>CARGANDO</div>
         ) : (
           <div>
+            <h3>TU PERFIL</h3>
             <ProfileCard
-              first_name={user.first_name}
-              last_name={user.last_name}
-              email={user.email}
+              first_name={`Nombre: ${user.first_name}`}
+              last_name={`Apellidos: ${user.last_name}`}
+              email={`Email: ${user.email}`}
             />
             <CustomInput
               className={`inputDesign ${userError.first_nameError !== "" ? "inputDesignError" : ""
@@ -235,7 +236,7 @@ export const Profile = () => {
             />
             <div className="error">{userError.emailError}</div>
             <CustomButton
-              className={write === "" ? "customButtonGreen customButtonDesign" : "customButtonDesign"}
+              className={"customButtonDesign"}
               title={write === "" ? "Confirm" : "Edit"}
               functionEmit={write === "" ? updateData : () => setWrite("")}
             />
@@ -244,55 +245,62 @@ export const Profile = () => {
         )
 
         }
+        <h3>TUS CITAS</h3>
+        <div className="UsersSection">
+          {appointments.map(
+            appointment => {
+              return (
 
-        {appointments.map(
-          appointment => {
-            return (
+                <>
 
-              <>
-                <AppointmentCard
-                  service_id={appointment.service.service_name}
-                  appointment_date={appointment.appointment_date}
-                />
-                <CustomButton
-                  className={"customButtonDesign"}
-                  title={"Borrar cita"}
-                  functionEmit={() => DeleteAppointment(appointment.id)}
-                />
-              </>
 
-            )
+
+                  <AppointmentCard
+                    service_id={appointment.service.service_name}
+                    appointment_date={appointment.appointment_date}
+                  />
+                  <CustomButton
+                    className={"customButtonDesign"}
+                    title={"Borrar cita"}
+                    functionEmit={() => DeleteAppointment(appointment.id)}
+                  />
+
+                </>
+
+              )
+            }
+          )
+
           }
-        )
-        }
+        </div>
 
-        <pre>{JSON.stringify(appointmentsCredentials, null, 2)}</pre>
+        <div className="UsersSection">
+          <h3>CREAR CITA</h3>
+          <CustomInput
+            className={`inputDesign`}
+            type={"date"}
+            placeholder={""}
+            name={"appointment_date"}
+            value={appointmentsCredentials.appointment_date || ""}
+            onChangeFunction={(e) => appointmentInputHandler(e)}
+          />
+          <CustomInput
+            className={`inputDesign`}
+            type={"text"}
+            placeholder={""}
+            name={"service_id"}
+            value={appointmentsCredentials.service_id || ""}
+            onChangeFunction={(e) => appointmentInputHandler(e)}
+          />
 
-        <CustomInput
-          className={`inputDesign`}
-          type={"date"}
-          placeholder={""}
-          name={"appointment_date"}
-          value={appointmentsCredentials.appointment_date || ""}
-          onChangeFunction={(e) => appointmentInputHandler(e)}
-        />
-        <CustomInput
-          className={`inputDesign`}
-          type={"text"}
-          placeholder={""}
-          name={"service_id"}
-          value={appointmentsCredentials.service_id || ""}
-          onChangeFunction={(e) => appointmentInputHandler(e)}
-        />
-
-        <CustomButton
-          className={"customButtonGreen"}
-          title={"Create appointment"}
-          functionEmit={createAppointment}
-        />
-
+          <CustomButton
+            className={"customButtonDesign"}
+            title={"Crear cita"}
+            functionEmit={createAppointment}
+          />
 
 
+        </div>
       </div>
 
     </>

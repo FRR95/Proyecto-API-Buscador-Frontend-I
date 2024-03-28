@@ -1,19 +1,16 @@
-.servicesCardDesign{
+.servicesCardDesign {
     height: 10em;
-    width:100em;
-    margin:1em;
-    border:1px solid black;
-    border-radius: 2em;
+    width: 50em;
+    margin: 1em;
+    font-weight: bold;
+    border: 0.5px solid rgb(185, 185, 185);
+    border-radius: 0.2em;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 1em;
     justify-content: center;
     align-items: center;
-    background-color: rgb(29, 229, 255);
-    transition:0.5s;
-}
-.servicesCardDesign:hover{
-    cursor: pointer;
-    background-color: rgb(19, 146, 163);
+    background-color: #555454;
     transition: 0.5s;
-    
+    color: white;
 }

@@ -6,7 +6,7 @@
 
     border-radius: 0.5em;
 
-    background-color: red;
+    background-color: black;
     color: white;
     font-weight: bold;
 
@@ -20,7 +20,7 @@
 
     cursor: pointer;
     transition: 0.2s;
-    background-color: darkred;
+    background-color: gray;
 }
 
 .customButtonGreen {

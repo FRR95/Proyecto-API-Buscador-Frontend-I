@@ -8,9 +8,10 @@ import { useNavigate } from "react-router-dom";
 import { decodeToken } from "react-jwt";
 import { Header } from "../../common/Header/Header";
 
-const datosUser = JSON.parse(localStorage.getItem("passport"));
+
 
 export const Login = () => {
+  const datosUser = JSON.parse(localStorage.getItem("passport"));
   const navigate = useNavigate();
   const [tokenStorage, setTokenStorage] = useState(datosUser?.token);
 
@@ -89,7 +90,9 @@ export const Login = () => {
   return (
     <>
       <Header />
+      
       <div className="loginDesign">
+      <h1>LOGIN</h1>
         <CustomInput
           className={`inputDesign ${credencialesError.emailError !== "" ? "inputDesignError" : ""
             }`}

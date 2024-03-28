@@ -1,19 +1,14 @@
 .profileCardDesign{
     height: 10em;
-    width:15em;
-    border:1px solid black;
-    border-radius: 2em;
+    width:20em;
+    font-weight: bold;
+    border:0.5px solid rgb(185, 185, 185);
+    border-radius: 0.2em;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgb(255, 135, 135);
+    background-color: #555454;
     transition:0.5s;
     margin:1em
-}
-.profileCardDesign:hover{
-    cursor: pointer;
-    background-color: rgb(255, 85, 85);
-    transition: 0.5s;
-    
 }

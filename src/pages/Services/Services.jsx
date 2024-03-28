@@ -31,6 +31,7 @@ export const Services = () => {
         <>
             <Header />
             <div className="servicesDesign">
+                <h1>NUESTROS SERVICIOS</h1>
                 {
                     services.length > 0
                         ? (
@@ -40,10 +41,14 @@ export const Services = () => {
                                         return (
 
                                             <>
-                                                <ServicesCard
-                                                    service_name={service.service_name}
-                                                    description={service.description}
-                                                />
+
+                                                <div className="serviceSection">
+                                                    <ServicesCard
+                                                        service_name={service.service_name}
+                                                        description={service.description}
+                                                    />
+                                                </div>
+
                                             </>
                                         )
                                     }

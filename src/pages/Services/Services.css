@@ -2,11 +2,18 @@
 
    
     width: 99vw;
-
-    background-color: rgb(198, 243, 113);
+    font-weight: bold;
+    background-color: #2c2c2c;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+.serviceSection{
+    display: flex;
+   
+    justify-content: center;
+    align-items: center;
+    margin:2em
 }
