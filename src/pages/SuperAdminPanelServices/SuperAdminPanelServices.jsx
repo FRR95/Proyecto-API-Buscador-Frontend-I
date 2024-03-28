@@ -61,11 +61,11 @@ export const SuperAdminPanelServices = () => {
 
     const CreateService = async () => {
         try {
-            for (let elemento in services) {
-                if (services[elemento] === "") {
-                    throw new Error("Todos los campos tienen que estar rellenos");
+           
+                if (servicesCredentials.service_name === "" && servicesCredentials.description === "" ) {
+                    return setMsgError("Todos los campos tienen que estar rellenos");
                 }
-            }
+            
             setLoading(true)
             const fetched = await PostService(servicesCredentials, tokenStorage)
             if (!fetched.success) {
@@ -94,19 +94,20 @@ export const SuperAdminPanelServices = () => {
     const UpdateService = async (serviceId) => {
         try {
             for (let elemento in servicesCredentials) {
-                // if (servicesCredentials[elemento] === "") {
-                //   throw new Error("Todos los campos tienen que estar rellenos");
-                // }
-                console.log(servicesCredentials[elemento])
-              }
-            // const fetched = await UpdateServiceById(servicesCredentials, serviceId, tokenStorage)
-            // if (!fetched.success) {
-            //   return  setMsgError(fetched.message)
-            // }
-            // setMsgSuccess(fetched.message)
-            // setTimeout(() => {
-            //     BringData()
-            // }, 1000);
+                if (servicesCredentials[elemento] === "") {
+                    return setMsgError("Todos los campos tienen que estar rellenos");
+                }
+            }
+
+
+            const fetched = await UpdateServiceById(servicesCredentials, serviceId, tokenStorage)
+            if (!fetched.success) {
+                return setMsgError(fetched.message)
+            }
+            setMsgSuccess(fetched.message)
+            setTimeout(() => {
+                BringData()
+            }, 1000);
         } catch (error) {
             setMsgError(error)
         }
