@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Header } from "../../common/Header/Header"
 import "./SuperAdminPanelServices.css"
-import { DeleteServiceById, GetServices, PostService } from "../../services/apiCalls"
+import { DeleteServiceById, GetServices, PostService, UpdateServiceById } from "../../services/apiCalls"
 import { ServicesCard } from "../../components/ServicesCard/ServicesCard"
 import { CustomInput } from "../../components/CustomInput/CustomInput"
 import { CustomButton } from "../../components/CustomButton/CustomButton"
@@ -10,6 +10,7 @@ export const SuperAdminPanelServices = () => {
     const datosUser = JSON.parse(localStorage.getItem("passport"));
 
     const [serviceError, setServiceError] = useState({
+        idError: "",
         service_nameError: "",
         descriptionError: "",
     });
@@ -21,6 +22,7 @@ export const SuperAdminPanelServices = () => {
 
     const [services, setServices] = useState([])
     const [servicesCredentials, setServicesCredentials] = useState({
+        id: "",
         service_name: "",
         description: "",
     })
@@ -85,9 +87,19 @@ export const SuperAdminPanelServices = () => {
 
     }, [services])
 
-    const updateData = (serviceId) => {
-        console.log(serviceId)
-        setWrite("disabled")
+    const UpdateService = async (serviceId) => {
+        try {
+            const fetched = await UpdateServiceById(servicesCredentials, serviceId, tokenStorage)
+            if (!fetched.success) {
+                setMsgError(fetched.message)
+            }
+            setMsgSuccess(fetched.message)
+            setTimeout(() => {
+                BringData()
+            }, 1000);
+        } catch (error) {
+            setMsgError(error)
+        }
     }
 
     const DeleteService = async (serviceId) => {
@@ -151,6 +163,7 @@ export const SuperAdminPanelServices = () => {
                                             /> */}
 
                                             <ServicesCard
+                                                service_id={service.id}
                                                 service_name={service.service_name}
                                                 description={service.description}
                                             />
@@ -169,6 +182,17 @@ export const SuperAdminPanelServices = () => {
                             <p>Los servicios estan viniendo </p>
                         </div>)
                 }
+                <CustomInput
+                    className={`inputDesign ${serviceError.idError !== "" ? "inputDesignError" : ""
+                        }`}
+                    type={"text"}
+                    placeholder={"serviceId"}
+                    name={"id"}
+                    value={servicesCredentials.id || ""}
+                    onChangeFunction={(e) => inputHandler(e)}
+                    onBlurFunction={(e) => checkError(e)}
+                />
+                <div className="error">{serviceError.idError}</div>
                 <CustomInput
                     className={`inputDesign ${serviceError.service_nameError !== "" ? "inputDesignError" : ""
                         }`}
@@ -193,8 +217,14 @@ export const SuperAdminPanelServices = () => {
                 <div className="error">{serviceError.descriptionError}</div>
                 <CustomButton
                     className={"customButtonDesign"}
-                    title={"Crear cita"}
+                    title={"Crear servicio"}
                     functionEmit={CreateService}
+                />
+
+                <CustomButton
+                    className={"customButtonDesign"}
+                    title={"Actualizar serivicio"}
+                    functionEmit={() => UpdateService(servicesCredentials.id)}
                 />
                 <div className="error">{msgError}</div>
                 <div className="success">{msgSuccess}</div>
