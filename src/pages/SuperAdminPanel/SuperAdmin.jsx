@@ -46,6 +46,12 @@ export const SuperAdminPanel = () => {
         }
 
     }, [users])
+    
+    useEffect(() => {
+        if (!tokenStorage) {
+          navigate("/");
+        }
+      }, [tokenStorage]);
 
 
     //Delete User

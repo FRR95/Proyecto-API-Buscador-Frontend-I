@@ -179,8 +179,10 @@ export const Profile = () => {
     <>
       <Header />
       <div className="profileDesign">
-        <div className="error">{msgError}</div>
-        <div className="success">{msgSuccess}</div>
+        <div className="statusInfo">
+          <div className="error">{msgError}</div>
+          <div className="success">{msgSuccess}</div>
+        </div>
         {loading ? (
 
           <span>Loading...</span>
@@ -245,8 +247,9 @@ export const Profile = () => {
         )
 
         }
-        <h3>TUS CITAS</h3>
+
         <div className="UsersSection">
+          <h3>TUS CITAS</h3>
           {appointments.map(
             appointment => {
               return (
@@ -287,7 +290,7 @@ export const Profile = () => {
           <CustomInput
             className={`inputDesign`}
             type={"text"}
-            placeholder={""}
+            placeholder={"service_id"}
             name={"service_id"}
             value={appointmentsCredentials.service_id || ""}
             onChangeFunction={(e) => appointmentInputHandler(e)}

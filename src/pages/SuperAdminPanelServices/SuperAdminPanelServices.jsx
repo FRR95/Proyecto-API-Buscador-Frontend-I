@@ -33,7 +33,11 @@ export const SuperAdminPanelServices = () => {
         }));
     };
 
-
+    useEffect(() => {
+        if (!tokenStorage) {
+            navigate("/");
+        }
+    }, [tokenStorage]);
     const checkError = (e) => {
         const error = validame(e.target.name, e.target.value);
 
@@ -89,14 +93,20 @@ export const SuperAdminPanelServices = () => {
 
     const UpdateService = async (serviceId) => {
         try {
-            const fetched = await UpdateServiceById(servicesCredentials, serviceId, tokenStorage)
-            if (!fetched.success) {
-                setMsgError(fetched.message)
-            }
-            setMsgSuccess(fetched.message)
-            setTimeout(() => {
-                BringData()
-            }, 1000);
+            for (let elemento in servicesCredentials) {
+                // if (servicesCredentials[elemento] === "") {
+                //   throw new Error("Todos los campos tienen que estar rellenos");
+                // }
+                console.log(servicesCredentials[elemento])
+              }
+            // const fetched = await UpdateServiceById(servicesCredentials, serviceId, tokenStorage)
+            // if (!fetched.success) {
+            //   return  setMsgError(fetched.message)
+            // }
+            // setMsgSuccess(fetched.message)
+            // setTimeout(() => {
+            //     BringData()
+            // }, 1000);
         } catch (error) {
             setMsgError(error)
         }
@@ -125,43 +135,6 @@ export const SuperAdminPanelServices = () => {
                                 service => {
                                     return (
                                         <>
-
-                                            {/* <CustomInput
-                                                className={`inputDesign ${serviceError.service_nameError !== "" ? "inputDesignError" : ""
-                                                    }`}
-                                                type={"text"}
-                                                placeholder={"service_name"}
-                                                name={"service_name"}
-                                                disabled={write}
-                                                value={service.service_name || ""}
-                                                onChangeFunction={(e) => inputHandler(e)}
-                                                onBlurFunction={(e) => checkError(e)}
-                                            />
-                                            <div className="error">{serviceError.service_nameError}</div>
-                                            <CustomInput
-                                                className={`inputDesign ${serviceError.descriptionError !== "" ? "inputDesignError" : ""
-                                                    }`}
-                                                type={"text"}
-                                                placeholder={""}
-                                                name={"description"}
-                                                disabled={write}
-                                                value={service.description || ""}
-                                                onChangeFunction={(e) => inputHandler(e)}
-                                                onBlurFunction={(e) => checkError(e)}
-                                            />
-                                            <div className="error">{serviceError.descriptionError}</div>
-
-                                            <CustomButton
-                                                className={write === "" ? "customButtonGreen customButtonDesign" : "customButtonDesign"}
-                                                title={write === "" ? "Confirm" : "Edit"}
-                                                functionEmit={write === "" ? () => updateData(service.id) : () => setWrite("")}
-                                            />
-                                            <CustomButton
-                                                className={"customButtonDesign"}
-                                                title={"Borrar"}
-                                                functionEmit={() => DeleteService(service.id)}
-                                            /> */}
-
                                             <ServicesCard
                                                 service_id={service.id}
                                                 service_name={service.service_name}
@@ -169,7 +142,7 @@ export const SuperAdminPanelServices = () => {
                                             />
                                             <CustomButton
                                                 className={"customButtonDesign"}
-                                                title={"Borrar"}
+                                                title={"Borrar Servicio"}
                                                 functionEmit={() => DeleteService(service.id)}
                                             />
                                         </>
@@ -182,59 +155,61 @@ export const SuperAdminPanelServices = () => {
                             <p>Los servicios estan viniendo </p>
                         </div>)
                 }
-                <CustomInput
-                    className={`inputDesign ${serviceError.idError !== "" ? "inputDesignError" : ""
-                        }`}
-                    type={"text"}
-                    placeholder={"serviceId"}
-                    name={"id"}
-                    value={servicesCredentials.id || ""}
-                    onChangeFunction={(e) => inputHandler(e)}
-                    onBlurFunction={(e) => checkError(e)}
-                />
-                <div className="error">{serviceError.idError}</div>
-                <CustomInput
-                    className={`inputDesign ${serviceError.service_nameError !== "" ? "inputDesignError" : ""
-                        }`}
-                    type={"text"}
-                    placeholder={"service_name"}
-                    name={"service_name"}
-                    value={servicesCredentials.service_name || ""}
-                    onChangeFunction={(e) => inputHandler(e)}
-                    onBlurFunction={(e) => checkError(e)}
-                />
-                <div className="error">{serviceError.service_nameError}</div>
-                <CustomInput
-                    className={`inputDesign ${serviceError.descriptionError !== "" ? "inputDesignError" : ""
-                        }`}
-                    type={"text"}
-                    placeholder={"description"}
-                    name={"description"}
-                    value={servicesCredentials.description || ""}
-                    onChangeFunction={(e) => inputHandler(e)}
-                    onBlurFunction={(e) => checkError(e)}
-                />
-                <div className="error">{serviceError.descriptionError}</div>
-                <CustomButton
-                    className={"customButtonDesign"}
-                    title={"Crear servicio"}
-                    functionEmit={CreateService}
-                />
+                <div className="serviceFormSection">
+                    <CustomInput
+                        className={`inputDesign ${serviceError.idError !== "" ? "inputDesignError" : ""
+                            }`}
+                        type={"text"}
+                        placeholder={"serviceId"}
+                        name={"id"}
+                        value={servicesCredentials.id || ""}
+                        onChangeFunction={(e) => inputHandler(e)}
+                        onBlurFunction={(e) => checkError(e)}
+                    />
+                    <div className="error">{serviceError.idError}</div>
+                    <CustomInput
+                        className={`inputDesign ${serviceError.service_nameError !== "" ? "inputDesignError" : ""
+                            }`}
+                        type={"text"}
+                        placeholder={"service_name"}
+                        name={"service_name"}
+                        value={servicesCredentials.service_name || ""}
+                        onChangeFunction={(e) => inputHandler(e)}
+                        onBlurFunction={(e) => checkError(e)}
+                    />
+                    <div className="error">{serviceError.service_nameError}</div>
+                    <CustomInput
+                        className={`inputDesign ${serviceError.descriptionError !== "" ? "inputDesignError" : ""
+                            }`}
+                        type={"text"}
+                        placeholder={"description"}
+                        name={"description"}
+                        value={servicesCredentials.description || ""}
+                        onChangeFunction={(e) => inputHandler(e)}
+                        onBlurFunction={(e) => checkError(e)}
+                    />
+                    <div className="error">{serviceError.descriptionError}</div>
+                    <CustomButton
+                        className={"customButtonDesign"}
+                        title={"Crear servicio"}
+                        functionEmit={CreateService}
+                    />
 
-                <CustomButton
-                    className={"customButtonDesign"}
-                    title={"Actualizar serivicio"}
-                    functionEmit={() => UpdateService(servicesCredentials.id)}
-                />
-                <div className="error">{msgError}</div>
-                <div className="success">{msgSuccess}</div>
-                {loading ? (
+                    <CustomButton
+                        className={"customButtonDesign"}
+                        title={"Actualizar serivicio"}
+                        functionEmit={() => UpdateService(servicesCredentials.id)}
+                    />
+                    <div className="error">{msgError}</div>
+                    <div className="success">{msgSuccess}</div>
+                    {loading ? (
 
-                    <span>Loading...</span>
+                        <span>Loading...</span>
 
-                ) : (
-                    ""
-                )}
+                    ) : (
+                        ""
+                    )}
+                </div>
             </div>
         </>
     )
