@@ -136,7 +136,7 @@ export const Register = () => {
         <div className="successMessage">{msgSuccess}</div>
         {loading ? (
 
-          <span>Loading...</span>
+          <img src="\imgs\loadingspinner.gif" height="34em" width="34em" alt="" />
 
         ) : (
           ""

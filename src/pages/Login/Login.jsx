@@ -90,9 +90,9 @@ export const Login = () => {
   return (
     <>
       <Header />
-      
+
       <div className="loginDesign">
-      <h1>LOGIN</h1>
+        <h1>LOGIN</h1>
         <CustomInput
           className={`inputDesign ${credencialesError.emailError !== "" ? "inputDesignError" : ""
             }`}
@@ -125,7 +125,7 @@ export const Login = () => {
         <div className="success">{msgSuccess}</div>
         {loading ? (
 
-          <span>Loading...</span>
+          <img src="\imgs\loadingspinner.gif" height="34em" width="34em" alt="" />
 
         ) : (
           ""

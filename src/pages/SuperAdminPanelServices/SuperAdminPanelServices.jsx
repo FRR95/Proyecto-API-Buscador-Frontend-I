@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { Header } from "../../common/Header/Header"
+import { useNavigate } from "react-router";
 import "./SuperAdminPanelServices.css"
 import { DeleteServiceById, GetServices, PostService, UpdateServiceById } from "../../services/apiCalls"
 import { ServicesCard } from "../../components/ServicesCard/ServicesCard"
@@ -8,7 +9,7 @@ import { CustomButton } from "../../components/CustomButton/CustomButton"
 import { validame } from "../../utils/functions"
 export const SuperAdminPanelServices = () => {
     const datosUser = JSON.parse(localStorage.getItem("passport"));
-
+    const navigate = useNavigate();
     const [serviceError, setServiceError] = useState({
         idError: "",
         service_nameError: "",
@@ -38,6 +39,13 @@ export const SuperAdminPanelServices = () => {
             navigate("/");
         }
     }, [tokenStorage]);
+
+    useEffect(() => {
+        if (datosUser.decodificado.roleName !== "super_admin") {
+            navigate("/");
+        }
+
+    }, [datosUser]);
     const checkError = (e) => {
         const error = validame(e.target.name, e.target.value);
 
@@ -61,11 +69,11 @@ export const SuperAdminPanelServices = () => {
 
     const CreateService = async () => {
         try {
-           
-                if (servicesCredentials.service_name === "" && servicesCredentials.description === "" ) {
-                    return setMsgError("Todos los campos tienen que estar rellenos");
-                }
-            
+
+            if (servicesCredentials.service_name === "" && servicesCredentials.description === "") {
+                return setMsgError("Todos los campos tienen que estar rellenos");
+            }
+
             setLoading(true)
             const fetched = await PostService(servicesCredentials, tokenStorage)
             if (!fetched.success) {
@@ -123,6 +131,13 @@ export const SuperAdminPanelServices = () => {
             BringData()
         }, 2000);
     }
+    const AddInfoToForm = async (service) => {
+        setServicesCredentials({
+            id: service.id,
+            service_name: service.service_name,
+            description: service.description,
+        })
+    }
     return (
         <>
             <Header />
@@ -146,6 +161,11 @@ export const SuperAdminPanelServices = () => {
                                                 title={"Borrar Servicio"}
                                                 functionEmit={() => DeleteService(service.id)}
                                             />
+                                            <CustomButton
+                                                className={"customButtonDesign"}
+                                                title={"Editar Servicio"}
+                                                functionEmit={() => AddInfoToForm(service)}
+                                            />
                                         </>
                                     )
                                 }
@@ -163,6 +183,7 @@ export const SuperAdminPanelServices = () => {
                         type={"text"}
                         placeholder={"serviceId"}
                         name={"id"}
+                        disabled={"disabled"}
                         value={servicesCredentials.id || ""}
                         onChangeFunction={(e) => inputHandler(e)}
                         onBlurFunction={(e) => checkError(e)}
@@ -205,7 +226,7 @@ export const SuperAdminPanelServices = () => {
                     <div className="success">{msgSuccess}</div>
                     {loading ? (
 
-                        <span>Loading...</span>
+                        <img src="public\imgs\loadingspinner.gif" height="34em" width="34em" alt="" />
 
                     ) : (
                         ""
