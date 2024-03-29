@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react"
 import { Header } from "../../common/Header/Header"
+import { useNavigate } from "react-router";
 import "./SuperAdmin.css"
 import { ProfileCard } from "../../components/ProfileCard/ProfileCard"
-import { DeleteUsers, GetAppointmentsUsersProfile, GetUsers, SeeUsersProfile } from "../../services/apiCalls"
+import { DeleteUsers, GetAppointmentsUsersProfile, GetUsers, SeeUsersProfile, UpdateUserById } from "../../services/apiCalls"
 import { CustomButton } from "../../components/CustomButton/CustomButton"
 import { AppointmentCard } from "../../components/AppointmentCard/AppointmentCard"
 import { CustomLink } from "../../components/CustomLink/CustomLink"
+import { CustomInput } from "../../components/CustomInput/CustomInput";
+import { validame } from "../../utils/functions";
 
 
 export const SuperAdminPanel = () => {
+    const navigate = useNavigate();
     const [users, setUsers] = useState([])
     const [userProfile, setUserProfile] = useState({
         id: "",
@@ -16,6 +20,29 @@ export const SuperAdminPanel = () => {
         last_name: "",
         email: ""
     })
+    const [userError, setUserProfileError] = useState({
+        first_nameError: "",
+        last_nameError: "",
+        emailError: ""
+    });
+
+    const inputHandler = (e) => {
+        setUserProfile((prevState) => ({
+            ...prevState,
+            [e.target.name]: e.target.value,
+        }));
+    };
+
+    const checkError = (e) => {
+        const error = validame(e.target.name, e.target.value);
+
+        setUserProfileError((prevState) => ({
+            ...prevState,
+            [e.target.name + "Error"]: error,
+        }));
+    };
+
+
     const [userAppointmenProfile, setUserAppointmentProfile] = useState({
         appointment_date: "",
         service_id: ""
@@ -46,12 +73,21 @@ export const SuperAdminPanel = () => {
         }
 
     }, [users])
-    
+
     useEffect(() => {
         if (!tokenStorage) {
-          navigate("/");
+            navigate("/");
         }
-      }, [tokenStorage]);
+
+    }, [tokenStorage]);
+
+
+    useEffect(() => {
+        if (datosUser.decodificado.roleName !== "super_admin") {
+            navigate("/");
+        }
+
+    }, [datosUser]);
 
 
     //Delete User
@@ -70,6 +106,20 @@ export const SuperAdminPanel = () => {
             setMsgError(error)
         }
 
+    }
+
+    const UpdateUserProfile = async (userId) => {
+        try {
+            const fetched = await UpdateUserById(userProfile, userId, tokenStorage)
+            if (!fetched.success) {
+                return setMsgError(fetched.message)
+            }
+            setMsgSuccess(fetched.message)
+
+            BringData()
+        } catch (error) {
+            setMsgError(error)
+        }
     }
 
     //Get user appointments
@@ -114,10 +164,10 @@ export const SuperAdminPanel = () => {
             <Header />
             <div className="superAdminPanelDesign">
 
-               
+
                 <div className="error">{msgError}</div>
                 <div className="success">{msgSuccess}</div>
-            
+
                 {
                     users.length > 0
                         ? (<div className="superAdminPanelDesign">
@@ -136,11 +186,37 @@ export const SuperAdminPanel = () => {
                                                 last_name={userProfile.last_name}
                                                 email={userProfile.email}
                                             />
+                                            <CustomInput
+                                                className={`inputDesign ${userError.first_nameError !== "" ? "inputDesignError" : ""
+                                                    }`}
+                                                type={"text"}
+                                                placeholder={""}
+                                                name={"first_name"}
+                                                value={userProfile.first_name || ""}
+                                                onChangeFunction={(e) => inputHandler(e)}
+                                                onBlurFunction={(e) => checkError(e)}
+                                            />
+                                            <CustomInput
+                                                className={`inputDesign ${userError.last_nameError !== "" ? "inputDesignError" : ""
+                                                    }`}
+                                                type={"text"}
+                                                placeholder={""}
+                                                name={"last_name"}
+                                                value={userProfile.last_name || ""}
+                                                onChangeFunction={(e) => inputHandler(e)}
+                                                onBlurFunction={(e) => checkError(e)}
+                                            />
+
 
                                             <CustomButton
                                                 className={"customButtonDesign"}
                                                 title={`Ver citas de ${userProfile.first_name}`}
                                                 functionEmit={() => GetUsersAppointments(userProfile.id)}
+                                            />
+                                            <CustomButton
+                                                className={"customButtonDesign"}
+                                                title={`Editar perfil de ${userProfile.first_name}`}
+                                                functionEmit={() => UpdateUserProfile(userProfile.id)}
                                             />
                                         </div>
                                     </>
@@ -210,12 +286,12 @@ export const SuperAdminPanel = () => {
                         :
                         ("No hay citas disponibles")
                 }
-                
-                    <CustomLink
-                        destination={"/superadminpanelservices"}
-                        title={"Ver servicios de admin"}
-                    />
-               
+
+                <CustomLink
+                    destination={"/superadminpanelservices"}
+                    title={"Ver servicios de admin"}
+                />
+
             </div>
         </>
     )
