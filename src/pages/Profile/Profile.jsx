@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import "./Profile.css";
-import { DeleteUserAppointment, GetAppointments, GetProfile, PostAppointment, UpdateProfile } from "../../services/apiCalls";
+import { DeleteUserAppointment, GetAppointments, GetProfile, GetServices, PostAppointment, UpdateProfile } from "../../services/apiCalls";
 import { ProfileCard } from "../../components/ProfileCard/ProfileCard";
 import { CustomInput } from "../../components/CustomInput/CustomInput";
 import { validame } from "../../utils/functions";
@@ -13,12 +13,34 @@ import { Header } from "../../common/Header/Header";
 export const Profile = () => {
   const datosUser = JSON.parse(localStorage.getItem("passport"));
   const navigate = useNavigate();
+  const [services, setServices] = useState([])
+  
+  useEffect(() => {
+    if (services.length === 0) {
+      const BringData = async () => {
+        try {
+
+
+          const fetched = await GetServices()
+          setServices(fetched.data)
+
+        } catch (error) {
+          console.log(error)
+        }
+      }
+      BringData()
+    }
+
+  }, [services])
+
+
 
   const [appointments, setAppointments] = useState([])
   const [appointmentsCredentials, setAppointmentsCredentials] = useState({
     appointment_date: "",
     service_id: "",
   });
+
 
   const appointmentInputHandler = (e) => {
     setAppointmentsCredentials((prevState) => ({
@@ -35,11 +57,10 @@ export const Profile = () => {
     email: "",
   });
 
-
   const [userError, setUserError] = useState({
     first_nameError: "",
     last_nameError: "",
-    emailError: "",
+    emailError: ""
   });
 
   const inputHandler = (e) => {
@@ -57,7 +78,6 @@ export const Profile = () => {
       [e.target.name + "Error"]: error,
     }));
   };
-
   const [msgError, setMsgError] = useState("");
   const [msgSuccess, setMsgSuccess] = useState("");
   const [loading, setLoading] = useState(false)
@@ -183,13 +203,6 @@ export const Profile = () => {
           <div className="error">{msgError}</div>
           <div className="success">{msgSuccess}</div>
         </div>
-        {loading ? (
-
-          <span>Loading...</span>
-
-        ) : (
-          ""
-        )}
 
         {!loadedData ? (
           <div>CARGANDO</div>
@@ -281,26 +294,56 @@ export const Profile = () => {
           <h3>CREAR CITA</h3>
           <CustomInput
             className={`inputDesign`}
-            type={"date"}
+            type={"datetime-local"}
             placeholder={""}
             name={"appointment_date"}
             value={appointmentsCredentials.appointment_date || ""}
             onChangeFunction={(e) => appointmentInputHandler(e)}
           />
-          <CustomInput
+          {/* <CustomInput
             className={`inputDesign`}
             type={"text"}
             placeholder={"service_id"}
             name={"service_id"}
             value={appointmentsCredentials.service_id || ""}
             onChangeFunction={(e) => appointmentInputHandler(e)}
-          />
+          /> */}
+
+          {
+            services.length > 0
+              ? (
+                <select className="inputDesign" name="service_id" onChange={(e) => appointmentInputHandler(e)} >
+                  {services.map(
+                    service => {
+                      return (
+                        <>
+                          <option  value={`${service.id}`} >{service.service_name}</option>
+                        </>
+                      )
+                    }
+                  )
+                  }
+                </select>)
+              : (
+                <p>Los servicios estan viniendo </p>
+              )
+          }
+
+
 
           <CustomButton
             className={"customButtonDesign"}
             title={"Crear cita"}
             functionEmit={createAppointment}
           />
+
+          {loading ? (
+
+            <img src="\imgs\loadingspinner.gif" height="34em" width="34em" alt="" />
+
+          ) : (
+            ""
+          )}
 
 
         </div>
