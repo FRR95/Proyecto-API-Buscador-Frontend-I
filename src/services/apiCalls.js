@@ -1,4 +1,4 @@
-const root = "http://localhost:4000/api/";
+const root = "https://proyecto-api-buscador-backend-i-dev-mjff.1.ie-1.fl0.io/api/";
 
 export const RegisterUser = async (user) => {
   const options = {
