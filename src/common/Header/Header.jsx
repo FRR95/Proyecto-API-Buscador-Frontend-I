@@ -17,7 +17,7 @@ export const Header = () => {
         <>
         
         <div className="headerDesign">
-        <img className="logoImg" src="public\imgs\tattoogear-tattoo8.png" alt="" />
+        <img className="logoImg" src=".\public\imgs\tattoogear-tattoo8.png" alt="" />
 
             <CustomLink title={"Home"} destination={"/"} />
             <CustomLink title={"Nuestros servicios"} destination={"/services"} />
