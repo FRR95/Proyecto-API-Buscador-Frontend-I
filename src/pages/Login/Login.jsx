@@ -125,7 +125,7 @@ export const Login = () => {
         <div className="success">{msgSuccess}</div>
         {loading ? (
 
-          <img src="\imgs\loadingspinner.gif" height="34em" width="34em" alt="" />
+          <img src=".\imgs\loadingspinner.gif" height="34em" width="34em" alt="" />
 
         ) : (
           ""
