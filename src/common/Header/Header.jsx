@@ -20,7 +20,6 @@ export const Header = () => {
         <img className="logoImg" src=".\imgs\tattoogear-tattoo8.png" alt="" />
 
             <CustomLink title={"Home"} destination={"/"} />
-            <CustomLink title={"Nuestros servicios"} destination={"/services"} />
 
             {passport?.token ? (
                 <div className="menu">
