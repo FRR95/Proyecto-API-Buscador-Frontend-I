@@ -1,5 +1,7 @@
 # Tattoo and piercieng shop FrontEnd 🐉
 
+<img src="./public/imgs/tatoostudio.jpg" alt="index" />
+
 Hi Geeks! I have made a Front End website based on <img src="https://img.shields.io/badge/REACT-61DAFB?style=for-the-badge&logo=React&logoColor=white" alt="React" />  of the Api Rest Backend that I made about a Tatoo and Piercing Shop 
 
 ([Repository Link Here! ⬅](https://github.com/FRR95/Proyecto-API-Buscador-Backend-I))
@@ -51,12 +53,7 @@ Hi Geeks! I have made a Front End website based on <img src="https://img.shields
 
 ### SuperAdminPanelServices.jsx
 
-
-
-<video src="./public/imgs/SuperAdminPanelServices.mp4" width="400"  controls></video>
-
-
-
+<img src="./public/imgs/SuperAdminPanelServices.PNG" alt="index" />
 
 ## Features
 
@@ -117,18 +114,31 @@ npm run dev
 ## Roadmap ❗
 
 **1-Watch the home page**
+
 **2-Watch our services**
+
 **3-Register your account**
+
 **4-Login your account**
+
 **5-Watch your profile**
+
 **6-Update your profile**
+
 **7-Create an appointment**
+
 **8-Delete an appointment**
+
 **9-Watch all the User profiles** *
+
 **10-Delete a user account** *
+
 **11-Watch a user profile in detail** *
+
 **12-Update a user profile info** *
+
 **13-Watch users appointments** *
+
 **14-Create,read,update and delete (CRUD) our services** *
 
 #### * These options are only available for those users who have the super_admin role 🚩
