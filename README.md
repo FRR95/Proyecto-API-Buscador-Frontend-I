@@ -8,6 +8,10 @@ Hi Geeks! I have made a Front End website based on <img src="https://img.shields
 
 ## Index 🧾
 
+<details>
+
+<summary>Index 🧾</summary>
+
 - [Technologies ⚙](#technologies-)
 - [Pages 📇](#pages-)
 - [Features](#features)
@@ -17,7 +21,7 @@ Hi Geeks! I have made a Front End website based on <img src="https://img.shields
 - [Author 🙍‍♂️](#author-🙍‍♂️)
 - [Time of development ⌛](#time-of-development-)
 
-
+</details>
 
 
 ## Technologies ⚙
@@ -32,6 +36,9 @@ Hi Geeks! I have made a Front End website based on <img src="https://img.shields
 
 
 ## Pages 📇
+
+<details>
+<summary>Pages 📇</summary>
 
 ### Home.jsx
 <img src="./public/imgs/Home.PNG" alt="index" />
@@ -54,6 +61,8 @@ Hi Geeks! I have made a Front End website based on <img src="https://img.shields
 ### SuperAdminPanelServices.jsx
 
 <img src="./public/imgs/SuperAdminPanelServices.PNG" alt="index" />
+
+</details>
 
 ## Features
 
