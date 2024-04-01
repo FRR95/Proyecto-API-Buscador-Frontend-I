@@ -32,25 +32,28 @@ Hi Geeks! I have made a Front End website based on <img src="https://img.shields
 ## Pages 📇
 
 ### Home.jsx
-<img src="./img/IndexPC.PNG" alt="index" />
+<img src="./public/imgs/Home.PNG" alt="index" />
 
 ### Services.jsx
-<img src="./img/IndexPC.PNG" alt="index" />
+<img src="./public/imgs/Servicios.PNG" alt="index" />
 
 ### Register.jsx
-<img src="./img/IndexPC.PNG" alt="index" />
+<img src="./public/imgs/Register.PNG" alt="index" />
 
 ### Login.jsx
-<img src="./img/IndexPC.PNG" alt="index" />
+<img src="./public/imgs/Login.PNG" alt="index" />
 
 ### Profile.jsx
-<img src="./img/IndexPC.PNG" alt="index" />
+<img src="./public/imgs/Profile.PNG" alt="index" />
 
 ### SuperAdmin.jsx
-<img src="./img/IndexPC.PNG" alt="index" />
+<img src="./public/imgs/SuperAdminPanel.PNG" alt="index" />
 
 ### SuperAdminPanelServices.jsx
-<img src="./img/IndexPC.PNG" alt="index" />
+
+
+
+<video src="./public/imgs/SuperAdminPanelServices.mp4" width="400"  controls></video>
 
 
 
