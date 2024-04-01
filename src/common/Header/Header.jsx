@@ -11,15 +11,19 @@ export const Header = () => {
         localStorage.removeItem("passport");
         navigate("/login");
     };
+    const goHome = () => {
+        navigate("/");
+    };
 
 
     return (
         <>
         
         <div className="headerDesign">
-        <img className="logoImg" src=".\imgs\tattoogear-tattoo8.png" alt="" />
+        <img className="logoImg" onClick={goHome} src=".\imgs\tattoogear-tattoo8.png" alt="" />
 
             <CustomLink title={"Home"} destination={"/"} />
+            <CustomLink title={"Nuestros servicios"} destination={"/services"} />
 
             {passport?.token ? (
                 <div className="menu">

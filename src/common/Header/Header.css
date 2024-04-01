@@ -18,6 +18,13 @@
 .logoImg {
     margin: 1em;
 
-    height: 8em;
-    width: 8em;
+    height: 9em;
+    width: 9em;
+    transition: 0.5s;
+}
+.logoImg:hover {
+ cursor: pointer;
+ transition: 0.5s;
+ height: 10em;
+ width: 10em;
 }

@@ -1,6 +1,7 @@
 .customLinkDesign {
     color: white;
     font-weight: bold;
+    font-size: large;
 
     transition: 0.2s;
     user-select: none;

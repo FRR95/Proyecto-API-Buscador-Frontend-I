@@ -4,61 +4,30 @@ import { Header } from "../../common/Header/Header";
 import "./Home.css";
 import { ServicesCard } from "../../components/ServicesCard/ServicesCard";
 import { GetServices } from "../../services/apiCalls";
+import { CustomButton } from "../../components/CustomButton/CustomButton";
+import { useNavigate } from "react-router-dom";
 
 export const Home = () => {
-    const [services, setServices] = useState([])
 
-    useEffect(() => {
-        if (services.length === 0) {
-            const BringData = async () => {
-                try {
+    const navigate = useNavigate()
 
-
-                    const fetched = await GetServices()
-                    setServices(fetched.data)
-
-                } catch (error) {
-                    console.log(error)
-                }
-            }
-            BringData()
-        }
-
-    }, [services])
-
+    const navigateToServices = () => {
+        navigate("/services")
+    }
     return (
         <>
-        <Header />
-        <div className="servicesDesign">
-            <h1>NUESTROS SERVICIOS</h1>
-            {
-                services.length > 0
-                    ? (
-                        <div>
-                            {services.map(
-                                service => {
-                                    return (
+            <Header />
+            <div className="homeDesign">
 
-                                        <>
-
-                                            <div className="serviceSection">
-                                                <ServicesCard
-                                                    service_name={service.service_name}
-                                                    description={service.description}
-                                                />
-                                            </div>
-
-                                        </>
-                                    )
-                                }
-                            )
-                            }
-                        </div>)
-                    : (
-                        <p>Los servicios estan viniendo </p>
-                    )
-            }
-        </div>
-    </>
+                <div className="center">
+                    <div className="title">Bienvenido a nuestra tienda</div>
+                </div>
+                <CustomButton
+                    functionEmit={navigateToServices}
+                    title={"Mira nuestros servicios"}
+                    className={"customButtonDesign"}
+                />
+            </div>
+        </>
     )
 }
