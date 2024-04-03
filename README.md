@@ -129,7 +129,12 @@ npm run dev
 **3-Register your account**
 
 **4-Login your account**
+```sh
+super_admin account:
 
+email:Hulda.Upton@gmail.com
+password:1234567
+```
 **5-Watch your profile**
 
 **6-Update your profile**
