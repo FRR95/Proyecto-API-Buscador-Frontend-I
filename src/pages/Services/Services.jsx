@@ -7,19 +7,29 @@ import { Header } from "../../common/Header/Header"
 export const Services = () => {
     const [services, setServices] = useState([])
 
+    const BringData = async () => {
+        try {
+
+
+            const fetched = await GetServices()
+            setServices(fetched.data)
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     useEffect(() => {
         if (services.length === 0) {
-            const BringData = async () => {
-                try {
+         
+            BringData()
+        }
 
+    }, [services])
 
-                    const fetched = await GetServices()
-                    setServices(fetched.data)
-
-                } catch (error) {
-                    console.log(error)
-                }
-            }
+    useEffect(() => {
+        if (services === undefined) {
+            
             BringData()
         }
 
